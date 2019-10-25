@@ -4,7 +4,7 @@ import WorkingWithPerson.Person;
 
 public class PersonDynamicMass implements DynamicMass<Person> {
 
-	/** Поле переменная основного массива */
+	/** РџРѕР»Рµ РїРµСЂРµРјРµРЅРЅР°СЏ РѕСЃРЅРѕРІРЅРѕРіРѕ РјР°СЃСЃРёРІР° */
 	private Person[] mass;
 	
 	private int size;
@@ -12,11 +12,11 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 	final int START_SIZE = 2;
 	
 	/**
-	 * Конструктор - создает объект с заданным начальным
-	 * размером массива и выставляет значение <b>size</b>
-	 * равным нулю
+	 * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ - СЃРѕР·РґР°РµС‚ РѕР±СЉРµРєС‚ СЃ Р·Р°РґР°РЅРЅС‹Рј РЅР°С‡Р°Р»СЊРЅС‹Рј
+	 * СЂР°Р·РјРµСЂРѕРј РјР°СЃСЃРёРІР° Рё РІС‹СЃС‚Р°РІР»СЏРµС‚ Р·РЅР°С‡РµРЅРёРµ <b>size</b>
+	 * СЂР°РІРЅС‹Рј РЅСѓР»СЋ
 	 * 
-	 * @param startSize - начальный размер массива
+	 * @param startSize - РЅР°С‡Р°Р»СЊРЅС‹Р№ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
 	 */
 	public PersonDynamicMass() {
 		mass = new Person[START_SIZE];
@@ -87,7 +87,7 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 		mass[index] = null;
 		size--;
 		
-		// Размер уменьшенного массива
+		// Р Р°Р·РјРµСЂ СѓРјРµРЅСЊС€РµРЅРЅРѕРіРѕ РјР°СЃСЃРёРІР°
 		int newSize = mass.length / 2;
 		
 		if(size <= newSize && newSize >= START_SIZE) {
@@ -99,7 +99,7 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 			}		
 			
 			if(noElemInSecondPart) {
-				// Итерационная переменная для нового уменьшенного массива
+				// РС‚РµСЂР°С†РёРѕРЅРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РґР»СЏ РЅРѕРІРѕРіРѕ СѓРјРµРЅСЊС€РµРЅРЅРѕРіРѕ РјР°СЃСЃРёРІР°
 				int j = 0;
 				
 				Person[] temp = new Person[newSize];
