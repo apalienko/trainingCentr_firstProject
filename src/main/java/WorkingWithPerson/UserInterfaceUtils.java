@@ -8,47 +8,47 @@ import java.util.Scanner;
 import PersonsContainer.PersonDynamicMass;
 
 /**
- * Вспомогательный класс для работы с пользователем
+ * Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅС‹Р№ РєР»Р°СЃСЃ РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
  * 
  * @author Aleksey
  *
  */
 public class UserInterfaceUtils {
 
-	/** Выбор пользователя */
+	/** Р’С‹Р±РѕСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ */
 	private int item = -1;
 	
-	/** Объект класса сканер для ввода с консоли */
+	/** РћР±СЉРµРєС‚ РєР»Р°СЃСЃР° СЃРєР°РЅРµСЂ РґР»СЏ РІРІРѕРґР° СЃ РєРѕРЅСЃРѕР»Рё */
 	private Scanner in = new Scanner(System.in);
 	
 	/**
-	 * @return выбор пользователя
+	 * @return РІС‹Р±РѕСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	 */
 	public int getItem() {
 		return item;
 	}
 	
 	/**
-	 * Выводит все пункты меню на консоль и считывает выбор пользователя
+	 * Р’С‹РІРѕРґРёС‚ РІСЃРµ РїСѓРЅРєС‚С‹ РјРµРЅСЋ РЅР° РєРѕРЅСЃРѕР»СЊ Рё СЃС‡РёС‚С‹РІР°РµС‚ РІС‹Р±РѕСЂ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
 	 */
 	public void readItem() {
-		System.out.println("Выберете действие:");
-		System.out.println("1. Добавить элемент");
-		System.out.println("2. Добавить элемент по индексу");
-		System.out.println("3. Вывести элемент по индексу");
-		System.out.println("4. Удалить элемент по индексу");
-		System.out.println("5. Посмотреть текущее количество элементов в массиве");
-		System.out.println("6. Посмотреть максимальное количество элементов в массиве");
-		System.out.println("0. Выход.");
+		System.out.println("Р’С‹Р±РµСЂРµС‚Рµ РґРµР№СЃС‚РІРёРµ:");
+		System.out.println("1. Р”РѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚");
+		System.out.println("2. Р”РѕР±Р°РІРёС‚СЊ СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ");
+		System.out.println("3. Р’С‹РІРµСЃС‚Рё СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ");
+		System.out.println("4. РЈРґР°Р»РёС‚СЊ СЌР»РµРјРµРЅС‚ РїРѕ РёРЅРґРµРєСЃСѓ");
+		System.out.println("5. РџРѕСЃРјРѕС‚СЂРµС‚СЊ С‚РµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ");
+		System.out.println("6. РџРѕСЃРјРѕС‚СЂРµС‚СЊ РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ");
+		System.out.println("0. Р’С‹С…РѕРґ.");
 		item = in.nextInt();
 	}
 	
 	/**
-	 * Преобразовывает <b>String</b> в <b>Date</b> в формате dd.MM.yyyy
+	 * РџСЂРµРѕР±СЂР°Р·РѕРІС‹РІР°РµС‚ <b>String</b> РІ <b>Date</b> РІ С„РѕСЂРјР°С‚Рµ dd.MM.yyyy
 	 * 
-	 * @param str - преобразуемая строка
-	 * @return объект типа Date
-	 * @throws ParseException некорректный формат ввода пользователем даты
+	 * @param str - РїСЂРµРѕР±СЂР°Р·СѓРµРјР°СЏ СЃС‚СЂРѕРєР°
+	 * @return РѕР±СЉРµРєС‚ С‚РёРїР° Date
+	 * @throws ParseException РЅРµРєРѕСЂСЂРµРєС‚РЅС‹Р№ С„РѕСЂРјР°С‚ РІРІРѕРґР° РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј РґР°С‚С‹
 	 */
 	public Date convertDate(String str) throws ParseException {
 		SimpleDateFormat frm = new SimpleDateFormat("dd.MM.yyyy");
@@ -57,17 +57,17 @@ public class UserInterfaceUtils {
 	}
 	
 	/**
-	 * Считывает индекс с консоли в допустимом диапазоне
+	 * РЎС‡РёС‚С‹РІР°РµС‚ РёРЅРґРµРєСЃ СЃ РєРѕРЅСЃРѕР»Рё РІ РґРѕРїСѓСЃС‚РёРјРѕРј РґРёР°РїР°Р·РѕРЅРµ
 	 * 
-	 * @param size - текущий размер массива
-	 * @return индекс, входящий в диапазон
-	 * @throws IndexOutOfBoundsException индекс выходит за допустимый диапазон
+	 * @param size - С‚РµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ РјР°СЃСЃРёРІР°
+	 * @return РёРЅРґРµРєСЃ, РІС…РѕРґСЏС‰РёР№ РІ РґРёР°РїР°Р·РѕРЅ
+	 * @throws IndexOutOfBoundsException РёРЅРґРµРєСЃ РІС‹С…РѕРґРёС‚ Р·Р° РґРѕРїСѓСЃС‚РёРјС‹Р№ РґРёР°РїР°Р·РѕРЅ
 	 */
 	public int readIndex(int size) throws IndexOutOfBoundsException{
 		int res = -1;
 		
 		while(res == -1){
-			System.out.println("Введите индекс: ");
+			System.out.println("Р’РІРµРґРёС‚Рµ РёРЅРґРµРєСЃ: ");
 			res = in.nextInt();
 			if(res < 0 || res > size)
 				throw(new IndexOutOfBoundsException());
@@ -77,10 +77,10 @@ public class UserInterfaceUtils {
 	}
 	
 	/**
-	 * Последовательно считывает с консоли все необходимые данных о человеке,
-	 * проверяя правильность введеных данных, и создает на их основе объект <b>Person</b>
+	 * РџРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕ СЃС‡РёС‚С‹РІР°РµС‚ СЃ РєРѕРЅСЃРѕР»Рё РІСЃРµ РЅРµРѕР±С…РѕРґРёРјС‹Рµ РґР°РЅРЅС‹С… Рѕ С‡РµР»РѕРІРµРєРµ,
+	 * РїСЂРѕРІРµСЂСЏСЏ РїСЂР°РІРёР»СЊРЅРѕСЃС‚СЊ РІРІРµРґРµРЅС‹С… РґР°РЅРЅС‹С…, Рё СЃРѕР·РґР°РµС‚ РЅР° РёС… РѕСЃРЅРѕРІРµ РѕР±СЉРµРєС‚ <b>Person</b>
 	 * 
-	 * @return объект <b>Person</b>
+	 * @return РѕР±СЉРµРєС‚ <b>Person</b>
 	 */
 	public Person readPerson() {
 		
@@ -88,21 +88,21 @@ public class UserInterfaceUtils {
 		Date bDay = null;
 		String gender;
 		
-		System.out.println("Введите ФИО: ");
+		System.out.println("Р’РІРµРґРёС‚Рµ Р¤РРћ: ");
 		FIO = in.next();
 	
 		do{
 			try {
-			System.out.println("Введите дату рождения в формате dd.mm.yyyy");
+			System.out.println("Р’РІРµРґРёС‚Рµ РґР°С‚Сѓ СЂРѕР¶РґРµРЅРёСЏ РІ С„РѕСЂРјР°С‚Рµ dd.mm.yyyy");
 			bDay = convertDate(in.next());
 		
 			}
 			catch(ParseException prsExc) {
-				System.out.println("Ошибка формата ввода даты. Повторите ввод\n");
+				System.out.println("РћС€РёР±РєР° С„РѕСЂРјР°С‚Р° РІРІРѕРґР° РґР°С‚С‹. РџРѕРІС‚РѕСЂРёС‚Рµ РІРІРѕРґ\n");
 			}
 		} while (bDay == null);
 		
-		System.out.println("Введите пол: ");
+		System.out.println("Р’РІРµРґРёС‚Рµ РїРѕР»: ");
 		gender = in.next();
 		
 		return new Person(FIO, bDay, gender);
@@ -110,16 +110,16 @@ public class UserInterfaceUtils {
 	
 	public static void main(String[] args) {
 		
-		// Объект вспомогательного класса для работы с пользователем
+		// РћР±СЉРµРєС‚ РІСЃРїРѕРјРѕРіР°С‚РµР»СЊРЅРѕРіРѕ РєР»Р°СЃСЃР° РґР»СЏ СЂР°Р±РѕС‚С‹ СЃ РїРѕР»СЊР·РѕРІР°С‚РµР»РµРј
 		UserInterfaceUtils utils = new UserInterfaceUtils();
 
-		// Вспомогательная переменная типа Person
+		// Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ С‚РёРїР° Person
 		Person temp;
 		
-		// Вспомогательная переменная индекса
+		// Р’СЃРїРѕРјРѕРіР°С‚РµР»СЊРЅР°СЏ РїРµСЂРµРјРµРЅРЅР°СЏ РёРЅРґРµРєСЃР°
 		int index;
 		
-		// Контейнер, с которым будет происходить работа
+		// РљРѕРЅС‚РµР№РЅРµСЂ, СЃ РєРѕС‚РѕСЂС‹Рј Р±СѓРґРµС‚ РїСЂРѕРёСЃС…РѕРґРёС‚СЊ СЂР°Р±РѕС‚Р°
 		PersonDynamicMass dynMass = new PersonDynamicMass();
 		
 		utils.readItem();
@@ -129,7 +129,7 @@ public class UserInterfaceUtils {
 				case 1:{
 					temp = utils.readPerson();
 					dynMass.push(temp);
-					System.out.println("Добавление успешно выполнено\n");
+					System.out.println("Р”РѕР±Р°РІР»РµРЅРёРµ СѓСЃРїРµС€РЅРѕ РІС‹РїРѕР»РЅРµРЅРѕ\n");
 					break;
 				}
 				case 2:{
@@ -137,9 +137,9 @@ public class UserInterfaceUtils {
 						temp = utils.readPerson();
 						index = utils.readIndex(dynMass.length());
 						dynMass.put(temp, index);
-						System.out.println("Добавление успешно выполнено\n");
+						System.out.println("Р”РѕР±Р°РІР»РµРЅРёРµ СѓСЃРїРµС€РЅРѕ РІС‹РїРѕР»РЅРµРЅРѕ\n");
 					} catch(IndexOutOfBoundsException indexExc) {
-						System.out.println("Ошибка индекс находится вне допустимого диапазона\n");
+						System.out.println("РћС€РёР±РєР° РёРЅРґРµРєСЃ РЅР°С…РѕРґРёС‚СЃСЏ РІРЅРµ РґРѕРїСѓСЃС‚РёРјРѕРіРѕ РґРёР°РїР°Р·РѕРЅР°\n");
 					}
 					break;
 				}
@@ -148,9 +148,9 @@ public class UserInterfaceUtils {
 						index = utils.readIndex(dynMass.length());
 						System.out.println(dynMass.get(index).toString());
 					} catch(IndexOutOfBoundsException indexExc) {
-						System.out.println("Ошибка индекс находится вне допустимого диапазона\n");
+						System.out.println("РћС€РёР±РєР° РёРЅРґРµРєСЃ РЅР°С…РѕРґРёС‚СЃСЏ РІРЅРµ РґРѕРїСѓСЃС‚РёРјРѕРіРѕ РґРёР°РїР°Р·РѕРЅР°\n");
 					} catch(NullPointerException nullExc) {
-						System.out.println("Ошибка ячейка с данным индексом не содержит данные\n");
+						System.out.println("РћС€РёР±РєР° СЏС‡РµР№РєР° СЃ РґР°РЅРЅС‹Рј РёРЅРґРµРєСЃРѕРј РЅРµ СЃРѕРґРµСЂР¶РёС‚ РґР°РЅРЅС‹Рµ\n");
 					} 
 					break;
 				}
@@ -158,18 +158,18 @@ public class UserInterfaceUtils {
 					try {
 						index = utils.readIndex(dynMass.length());
 						dynMass.delete(index);
-						System.out.println("Удаление успешно выполнено\n");
+						System.out.println("РЈРґР°Р»РµРЅРёРµ СѓСЃРїРµС€РЅРѕ РІС‹РїРѕР»РЅРµРЅРѕ\n");
 					} catch(IndexOutOfBoundsException indexExc) {
-						System.out.println("Ошибка индекс находится вне допустимого диапазона\n");	
+						System.out.println("РћС€РёР±РєР° РёРЅРґРµРєСЃ РЅР°С…РѕРґРёС‚СЃСЏ РІРЅРµ РґРѕРїСѓСЃС‚РёРјРѕРіРѕ РґРёР°РїР°Р·РѕРЅР°\n");	
 					}
 					break;
 				}
 				case 5:{
-					System.out.println("Текущее количество элементов в массиве: " + dynMass.curSize());					
+					System.out.println("РўРµРєСѓС‰РµРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ: " + dynMass.curSize());					
 					break;
 				}
 				case 6:{
-					System.out.println("Максималное количество элементов в массиве: " + dynMass.length());
+					System.out.println("РњР°РєСЃРёРјР°Р»РЅРѕРµ РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ РјР°СЃСЃРёРІРµ: " + dynMass.length());
 					break;
 				}
 			}
