@@ -1,9 +1,9 @@
 package WorkingWithPerson;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
+
+import org.joda.time.LocalDate;
 
 /**
  * Вспомогательный класс для работы с пользователем
@@ -48,10 +48,9 @@ public class UserInterfaceUtils {
 	 * @return объект типа Date
 	 * @throws ParseException некорректный формат ввода пользователем даты
 	 */
-	public Date convertDate(String str) throws ParseException {
-		SimpleDateFormat frm = new SimpleDateFormat("dd.MM.yyyy");
-		Date res =  frm.parse(str);
-		return res;
+	public LocalDate convertDate(String str) throws ParseException {
+	//	System.out.println(Integer.parseInt(str.split("/")[0]));
+		return new LocalDate(Integer.parseInt(str.split("/")[2]), Integer.parseInt(str.split("/")[1]), Integer.parseInt(str.split("/")[0]));
 	}
 	
 	/**
@@ -83,7 +82,7 @@ public class UserInterfaceUtils {
 	public Person readPerson() {
 		
 		String FIO = null;
-		Date bDay = null;
+		LocalDate bDay = null;
 		String gender;
 		
 		System.out.println("Введите ФИО: ");
@@ -91,7 +90,7 @@ public class UserInterfaceUtils {
 	
 		do{
 			try {
-			System.out.println("Введите дату рождения в формате dd.mm.yyyy");
+			System.out.println("Введите дату рождения в формате dd/mm/yyyy");
 			bDay = convertDate(in.next());
 		
 			}
