@@ -1,35 +1,41 @@
 package PersonsContainer;
 
-import WorkingWithPerson.Person;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
+import java.util.function.Predicate;
 
-public class PersonDynamicMass implements DynamicMass<Person> {
+import WorkingWithPerson.*;
 
-	/** Поле переменная основного массива */
-	private Person[] mass;
+public class PersonDynamicMass implements IRepository{
+
+	/** ���� ���������� ��������� ������� */
+	private IPerson[] mass;
 	
 	private int size;
 	
 	final int START_SIZE = 2;
 	
 	/**
-	 * Конструктор - создает объект с заданным начальным
-	 * размером массива и выставляет значение <b>size</b>
-	 * равным нулю
+	 * ����������� - ������� ������ � �������� ���������
+	 * �������� ������� � ���������� �������� <b>size</b>
+	 * ������ ����
 	 * 
-	 * @param startSize - начальный размер массива
+	 * @param startSize - ��������� ������ �������
 	 */
 	public PersonDynamicMass() {
-		mass = new Person[START_SIZE];
+		mass = new IPerson[START_SIZE];
 		for(int i = 0; i < START_SIZE; i++)
 			mass[i] = null;
 		size = 0;
 	}
 	
 	@Override
-	public void push(Person elem) {
+	public void add(IPerson person) {
 		
 		if(size == mass.length) {
-			Person[] temp = new Person[mass.length * 2];
+			IPerson[] temp = new IPerson[mass.length * 2];
 			for(int i = 0; i < mass.length; i++)
 				temp[i] = mass[i];
 			mass = temp;
@@ -40,7 +46,7 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 		while(!Ok && i < mass.length) {
 			Ok = mass[i] == null;
 			if(Ok) {
-				mass[i] = elem;
+				mass[i] = person;
 				size++;
 			}
 			else
@@ -49,15 +55,15 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 	}
 
 	@Override
-	public void put(Person elem, int index) {
+	public void add(int index, IPerson person){
 		if(index < 0 || index > mass.length)
 			throw(new IndexOutOfBoundsException());
-		mass[index] = elem;
+		mass[index] = person;
 		size++;
 	}
 
 	@Override
-	public Person get(int index) throws IndexOutOfBoundsException, NullPointerException {
+	public IPerson get(int index) throws IndexOutOfBoundsException, NullPointerException {
 		if(index < 0 || index > mass.length)
 			throw(new IndexOutOfBoundsException());
 		if(mass[index] == null)
@@ -65,8 +71,7 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 		return mass[index];
 	}
 
-	@Override
-	public int indexOf(Person elem) {		
+	public int indexOf(IPerson elem) {		
 		int i = 0;
 		boolean found;
 		do{
@@ -81,13 +86,14 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 	}
 
 	@Override
-	public void delete(int index) {
+	public IPerson delete(int index) {
 		if(index < 0 || index > mass.length)
 			throw(new IndexOutOfBoundsException());
+		IPerson res = mass[index];
 		mass[index] = null;
 		size--;
 		
-		// Размер уменьшенного массива
+		// ������ ������������ �������
 		int newSize = mass.length / 2;
 		
 		if(size <= newSize && newSize >= START_SIZE) {
@@ -99,10 +105,10 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 			}		
 			
 			if(noElemInSecondPart) {
-				// Итерационная переменная для нового уменьшенного массива
+				// ������������ ���������� ��� ������ ������������ �������
 				int j = 0;
 				
-				Person[] temp = new Person[newSize];
+				IPerson[] temp = new IPerson[newSize];
 				for(i = 0; i < mass.length; i++)
 					if(mass[i] != null) {
 						temp[j] = mass[i];
@@ -112,16 +118,81 @@ public class PersonDynamicMass implements DynamicMass<Person> {
 			}	
 		}
 		
+		return res;
 	}
 	
-	@Override
 	public int curSize() {
 		return size;
 	}
 
-	@Override
 	public int length() {
 		return mass.length;
 	}
+
+	/**
+	 * ���������� ���������
+	 */
+	@Override
+	public void sortBy(Comparator<IPerson> comparator) {
+		IPerson temp;
+		
+		for(int i = 0; i < size - 1; i++) {
+			temp = mass[i];
+			for(int j = i + 1; j < size; j++) 
+				if(comparator.compare(temp, mass[j]) > 0)
+					temp = mass[j];
+			
+			mass[i] = temp;
+		}
+	}
 	
+	/**
+	 * ���������� "���������"
+	 * 
+	 * @param comparator - ���������� ��� ��������� �������� IPerson
+	 */
+	public void bubbleSort(Comparator<IPerson> comparator) {
+		IPerson temp;
+		
+		for(int i = 0; i < size - 1; i++) {
+			for(int j = 0; j < size - 1 - i; j++)
+				if(comparator.compare(mass[j], mass[j + 1]) > 0) {
+					temp = mass[j];
+					mass[j] = mass[j + 1];
+					mass[j + 1] = temp;
+				}
+		}
+	}
+
+	@Override
+	public IPerson set(int index, IPerson person) {
+		if(index < 0 || index > mass.length)
+			throw(new IndexOutOfBoundsException());
+		IPerson temp = mass[index];
+		mass[index] = person;
+		size++;
+		
+		return temp;
+	}
+
+	@Override
+	public List<IPerson> toList() {
+		ArrayList<IPerson> res = new ArrayList<IPerson>(Arrays.asList(mass)); 
+		
+		return res;
+	}
+
+
+	@Override
+	public IRepository searchBy(Predicate<IPerson> condition) {
+		
+		PersonDynamicMass res = new PersonDynamicMass();
+		
+		for(int i = 0; i < size; i++) {
+			if(condition.test(mass[i]))
+				res.add(mass[i]);
+		}
+		
+		return res;
+	}
 }
