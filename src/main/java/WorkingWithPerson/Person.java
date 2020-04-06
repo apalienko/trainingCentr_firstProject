@@ -3,32 +3,45 @@ package WorkingWithPerson;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-//import java.util.Date;
+
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
 
 /**
- * Класс человека.
+ * пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ.
  * 
  * @author Aleksey
 */
 
+@XmlRootElement(name ="person")
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Person implements IPerson {
 
-	/** Поле Фамилия Имя и Отчество человека */
+	/** пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+	@XmlElement(required=true)
 	private String FIO;
 	
-	/** Поле Дата рождения */
-	private LocalDate bDay;
+	/** пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+	@XmlElement(required=true)
+	private LocalDate birthDate;
 	
-	/** Поле Пол человека */
+	/** пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+	@XmlElement(required=true)
 	private Gender gender;
 	
-	/** Персональный id человека */
+	/** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ id пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+	@XmlElement(required=true)
 	private Integer id;
 	
-	/** Отдел, в котором человек работает */
+	/** пїЅпїЅпїЅпїЅпїЅ, пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+	@XmlElement(required=true)
 	private IDivision division;
 	
-	/** Зарплата */
+	/** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ */
+	@XmlElement(required=true)
 	private BigDecimal salary;
 	
 	public String getFIO() {
@@ -38,35 +51,35 @@ public class Person implements IPerson {
 	public void setFIO(String fIO) {
 		FIO = fIO;
 	}
-
-	public LocalDate getbDay() {
-		return bDay;
-	}
-
-	public void setbDay(LocalDate bDay) {
-		this.bDay = bDay;
-	}
-
 	
 	/**
-	 * Конструктор - создание нового объекта с определенными значениями
+	 * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ - пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 * 
-	 * @param aFIO - фамилия, Имя и Отчество
-	 * @param aBDay - дата рождения
-	 * @param aGender - пол человека
+	 * @param aFIO - пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @param aBDay - пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	 * @param aGender - пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	 */
 	public Person(String aFIO, LocalDate aBDay, Gender aGender) {
 		
 		FIO = aFIO;
-		bDay = aBDay;
+		birthDate = aBDay;
 		gender = aGender;
 		
+	}
+	
+	public Person() {
+		FIO = "";
+		this.birthDate = null;
+		this.gender = Gender.MALE;
+		this.id = 0;
+		this.division = new Division();
+		this.salary = new BigDecimal(0);
 	}
 	
 	public Person(String fIO, LocalDate bDay, Gender gender, Integer id, IDivision division, BigDecimal salary) {
 		super();
 		FIO = fIO;
-		this.bDay = bDay;
+		this.birthDate = bDay;
 		this.gender = gender;
 		this.id = id;
 		this.division = division;
@@ -74,11 +87,10 @@ public class Person implements IPerson {
 	}
 
 	@Override
-	  public String toString() {
-		  SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-	      return "[FIO=" + this.FIO + ", Birth Day=" + sdf.format(this.bDay) + 
-	             ", Gender=" + this.gender + "]";
-	  }
+	public String toString() {
+		return "Person [FIO=" + FIO + ", birthDate=" + birthDate + ", gender=" + gender + ", id=" + id + ", division="
+				+ division + ", salary=" + salary + "]";
+	}
 
 	@Override
 	public Integer getId() {
@@ -116,12 +128,12 @@ public class Person implements IPerson {
 
 	@Override
 	public LocalDate getBirthdate() {
-		return bDay;
+		return birthDate;
 	}
 
 	@Override
 	public void setBirthdate(LocalDate birthdate) {
-		this.bDay = birthdate;
+		this.birthDate = birthdate;
 	}
 
 	@Override

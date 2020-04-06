@@ -6,23 +6,33 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlType;
+
 import WorkingWithPerson.*;
 
-public class PersonDynamicMass implements IRepository{
+@XmlRootElement(name = "PersonDynamicMass")
+@XmlAccessorType(XmlAccessType.FIELD)
+public class PersonDynamicMass implements IPersonRepository{
 
-	/** ���� ���������� ��������� ������� */
+	/** Main array of persons */
+	@XmlElement(name="person")
 	private IPerson[] mass;
 	
+	@XmlElement(required=true)
 	private int size;
 	
 	final int START_SIZE = 2;
 	
 	/**
-	 * ����������� - ������� ������ � �������� ���������
-	 * �������� ������� � ���������� �������� <b>size</b>
-	 * ������ ����
+	 * Creates empty persons array
 	 * 
-	 * @param startSize - ��������� ������ �������
+	 * @param startSize - size of initial array
 	 */
 	public PersonDynamicMass() {
 		mass = new IPerson[START_SIZE];
@@ -71,6 +81,12 @@ public class PersonDynamicMass implements IRepository{
 		return mass[index];
 	}
 
+	/**
+	 * give index of an element
+	 * 
+	 * @param elem - object which index we are tryiing to find
+	 * @return -1 if object wasn't found, index of that object in array otherwise
+	 */
 	public int indexOf(IPerson elem) {		
 		int i = 0;
 		boolean found;
@@ -93,7 +109,6 @@ public class PersonDynamicMass implements IRepository{
 		mass[index] = null;
 		size--;
 		
-		// ������ ������������ �������
 		int newSize = mass.length / 2;
 		
 		if(size <= newSize && newSize >= START_SIZE) {
@@ -105,7 +120,6 @@ public class PersonDynamicMass implements IRepository{
 			}		
 			
 			if(noElemInSecondPart) {
-				// ������������ ���������� ��� ������ ������������ �������
 				int j = 0;
 				
 				IPerson[] temp = new IPerson[newSize];
@@ -129,39 +143,10 @@ public class PersonDynamicMass implements IRepository{
 		return mass.length;
 	}
 
-	/**
-	 * ���������� ���������
-	 */
 	@Override
 	public void sortBy(Comparator<IPerson> comparator) {
-		IPerson temp;
 		
-		for(int i = 0; i < size - 1; i++) {
-			temp = mass[i];
-			for(int j = i + 1; j < size; j++) 
-				if(comparator.compare(temp, mass[j]) > 0)
-					temp = mass[j];
-			
-			mass[i] = temp;
-		}
-	}
-	
-	/**
-	 * ���������� "���������"
-	 * 
-	 * @param comparator - ���������� ��� ��������� �������� IPerson
-	 */
-	public void bubbleSort(Comparator<IPerson> comparator) {
-		IPerson temp;
-		
-		for(int i = 0; i < size - 1; i++) {
-			for(int j = 0; j < size - 1 - i; j++)
-				if(comparator.compare(mass[j], mass[j + 1]) > 0) {
-					temp = mass[j];
-					mass[j] = mass[j + 1];
-					mass[j + 1] = temp;
-				}
-		}
+		PersonMassSorter.insertionSort(mass, comparator);
 	}
 
 	@Override
@@ -184,7 +169,7 @@ public class PersonDynamicMass implements IRepository{
 
 
 	@Override
-	public IRepository searchBy(Predicate<IPerson> condition) {
+	public IPersonRepository searchBy(Predicate<IPerson> condition) {
 		
 		PersonDynamicMass res = new PersonDynamicMass();
 		

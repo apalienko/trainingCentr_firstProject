@@ -3,6 +3,9 @@ package WorkingWithPerson;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+import javax.xml.bind.annotation.XmlTransient;
+
+@XmlTransient
 public interface IPerson {
 	
 	public Integer getId();

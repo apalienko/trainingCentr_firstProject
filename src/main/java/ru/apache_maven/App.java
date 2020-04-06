@@ -1,57 +1,48 @@
 package ru.apache_maven;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+
+import PersonsContainer.MassFromFileReader;
 import PersonsContainer.PersonDynamicMass;
 import WorkingWithPerson.Division;
-import WorkingWithPerson.Gender;
 import WorkingWithPerson.Person;
 
 
 public class App 
 {
 public static void main(String[] args){
-		
+		final Logger LOG = Logger.getLogger(App.class.getName());
+	
 		PersonDynamicMass pdm = new PersonDynamicMass();
+		MassFromFileReader.read(pdm);
 		
-		String filename = "persons.txt";
 		try {
-			Scanner sc = new Scanner(new File(filename));			
-			List<String> lines = new ArrayList<String>();
-			while(sc.hasNextLine())
-				lines.add(sc.nextLine());
+			JAXBContext context = JAXBContext.newInstance(PersonDynamicMass.class, Person.class, Division.class);
+			Marshaller mar = context.createMarshaller();
+			mar.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
+			mar.marshal(pdm, new File("./pdm.xml"));
+			pdm =  new PersonDynamicMass();
 			
-			Person temp;
-			String[] persData;
-			Gender tempGen;
-			Division tempDiv;
-			LocalDate tempDate;
-			for(int i = 0; i < lines.size(); i++) {
-				persData = lines.get(i).split(";");
-				
-				if(persData[2].contentEquals("Male"))
-					tempGen = Gender.MALE;
-				else
-					tempGen = Gender.FEMALE;
-				
-				tempDiv = new Division(persData[4]);
-				
-				DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-				tempDate = LocalDate.parse(persData[3], dtf);
-				
-				temp = new Person(persData[1], tempDate, tempGen, Integer.parseInt(persData[0]), tempDiv, new BigDecimal(persData[5]));
-				pdm.add(temp);
-			}
+			LOG.log(Level.INFO, "Marshalling completed successfuly");
 			
-			sc.close();
-		} catch (FileNotFoundException e) {
+			Unmarshaller un = context.createUnmarshaller(); 
+			pdm = (PersonDynamicMass) un.unmarshal(new File("./pdm.xml"));
+			
+			LOG.log(Level.INFO, "Unmarshalling completed successfuly");
+			
+	//		for(int i = 0; i < pdm.length(); i++) {
+	//			System.out.println(pdm.get(i).toString());
+	//		}
+			
+			
+		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
 		
