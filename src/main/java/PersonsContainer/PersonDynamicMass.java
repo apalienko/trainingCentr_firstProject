@@ -1,11 +1,16 @@
 package PersonsContainer;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.Marshaller;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
@@ -15,11 +20,14 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 import WorkingWithPerson.*;
+import ru.apache_maven.App;
 
 @XmlRootElement(name = "PersonDynamicMass")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDynamicMass implements IPersonRepository{
 
+	final Logger LOG = Logger.getLogger(App.class.getName());
+	
 	/** Main array of persons */
 	@XmlElement(name="person")
 	private IPerson[] mass;
@@ -58,6 +66,8 @@ public class PersonDynamicMass implements IPersonRepository{
 			if(Ok) {
 				mass[i] = person;
 				size++;
+
+				LOG.log(Level.INFO, person.toString() + " added to dynamic array");
 			}
 			else
 				i++;
@@ -70,6 +80,8 @@ public class PersonDynamicMass implements IPersonRepository{
 			throw(new IndexOutOfBoundsException());
 		mass[index] = person;
 		size++;
+		
+		LOG.log(Level.INFO, person.toString() + " added to dynamic array");
 	}
 
 	@Override
@@ -96,8 +108,10 @@ public class PersonDynamicMass implements IPersonRepository{
 		} while(!found && i < mass.length);
 			
 		if(found) {
+			LOG.log(Level.INFO, elem.toString() + " found at dynamic array at " + (i--) + " position");
 			return i--;
 		}
+		LOG.log(Level.INFO, elem.toString() + " wasn't found at dynamic array");
 		return -1;
 	}
 
@@ -132,6 +146,7 @@ public class PersonDynamicMass implements IPersonRepository{
 			}	
 		}
 		
+		LOG.log(Level.INFO, res.toString() + " was deleted");
 		return res;
 	}
 	
