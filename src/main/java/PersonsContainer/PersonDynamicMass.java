@@ -17,6 +17,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
 
 import WorkingWithPerson.*;
@@ -26,6 +27,7 @@ import ru.apache_maven.App;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class PersonDynamicMass implements IPersonRepository{
 
+	@XmlTransient
 	final Logger LOG = Logger.getLogger(App.class.getName());
 	
 	/** Main array of persons */

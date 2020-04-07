@@ -37,11 +37,6 @@ public static void main(String[] args){
 			
 			LOG.log(Level.INFO, "Unmarshalling completed successfuly");
 			
-	//		for(int i = 0; i < pdm.length(); i++) {
-	//			System.out.println(pdm.get(i).toString());
-	//		}
-			
-			
 		} catch (JAXBException e) {
 			e.printStackTrace();
 		}
